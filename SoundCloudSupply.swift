@@ -121,7 +121,7 @@ class SoundCloudSupply {
         }
         
         if self.image == nil {
-            let fiveByFive = base.stringByReplacingOccurrencesOfString("large", withString: "original", options: NSStringCompareOptions.BackwardsSearch, range: nil)
+            let fiveByFive = base.stringByReplacingOccurrencesOfString("large", withString: "t500x500", options: NSStringCompareOptions.BackwardsSearch, range: nil)
             if let fiveByURL = NSURL(string: fiveByFive) {
                 setImageFromURL(fiveByURL)
             }
@@ -236,23 +236,16 @@ private class PlayerStreamObserver : NSObject {
     required init(supply:SoundCloudSupply) {
         supplier = supply
         super.init()
-        supply.player?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
         supply.player?.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.New, context: nil)
     }
     
     deinit {
-        supplier?.player?.removeObserver(self, forKeyPath: "status")
         supplier?.player?.removeObserver(self, forKeyPath: "rate")
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
         if object === supplier?.player {
-            if keyPath == "status" {
-                if supplier?.player?.status == .ReadyToPlay {
-                    
-                }   
-            }
-            else if keyPath == "rate" {
+            if keyPath == "rate" {
                 supplier?.playing = supplier?.player?.rate > 0
             }
         }

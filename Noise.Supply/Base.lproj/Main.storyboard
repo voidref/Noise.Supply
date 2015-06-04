@@ -116,12 +116,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woP-vO-DiO">
                                 <rect key="frame" x="16" y="588" width="343" height="30"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2mD-BY-A1M">
-                                        <rect key="frame" x="8" y="1" width="59" height="30"/>
-                                        <state key="normal" title="Previous">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pp5-8s-jnP">
                                         <rect key="frame" x="289" y="0.0" width="32" height="30"/>
                                         <state key="normal" title="Next">
@@ -144,8 +138,6 @@
                                     <constraint firstAttribute="centerY" secondItem="TXH-E1-bSw" secondAttribute="centerY" constant="-0.5" id="CTl-jM-zfG"/>
                                     <constraint firstAttribute="trailing" secondItem="Pp5-8s-jnP" secondAttribute="trailing" constant="22" id="N7n-fe-MSg"/>
                                     <constraint firstAttribute="centerY" secondItem="Pp5-8s-jnP" secondAttribute="centerY" id="NMW-c6-hmk"/>
-                                    <constraint firstAttribute="centerY" secondItem="2mD-BY-A1M" secondAttribute="centerY" constant="-1" id="f6B-5R-nf3"/>
-                                    <constraint firstItem="2mD-BY-A1M" firstAttribute="leading" secondItem="woP-vO-DiO" secondAttribute="leading" constant="8" id="j5h-Fc-W8d"/>
                                     <constraint firstItem="TXH-E1-bSw" firstAttribute="height" secondItem="woP-vO-DiO" secondAttribute="height" id="uTF-EJ-CuK"/>
                                 </constraints>
                             </view>
