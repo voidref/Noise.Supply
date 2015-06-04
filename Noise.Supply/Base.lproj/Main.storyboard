@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UXH-Ms-RaJ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="jbY-fl-ZcN">
+            <objects>
+                <navigationController id="UXH-Ms-RaJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8uy-DL-VWB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="0.71999999999999997" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="L3J-Mb-RC2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jTR-Zc-XSl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-499" y="-366"/>
+        </scene>
+        <!--NOISE.SUPPLY-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="NOISE.SUPPLY" id="vXZ-lx-hvc" customClass="ViewController" customModule="Noise_Supply" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -15,11 +37,87 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a SoundCloud track URL or username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Or-Fz-fZU">
+                                <rect key="frame" x="16" y="72" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P05-2e-gwb">
+                                <rect key="frame" x="16" y="550" width="568" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cc2-BW-dwD">
+                                        <rect key="frame" x="8" y="1" width="59" height="30"/>
+                                        <state key="normal" title="Previous">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAQ-XM-7Mm">
+                                        <rect key="frame" x="514" y="0.0" width="32" height="30"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fve-dk-QVJ">
+                                        <rect key="frame" x="269" y="0.0" width="30" height="30"/>
+                                        <state key="normal" title="Play">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="supplyNoiseClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8V4-B0-DfZ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="Fve-dk-QVJ" secondAttribute="centerX" id="01g-H2-rrl"/>
+                                    <constraint firstItem="Fve-dk-QVJ" firstAttribute="height" secondItem="P05-2e-gwb" secondAttribute="height" id="74u-Wq-dSZ"/>
+                                    <constraint firstAttribute="centerY" secondItem="CAQ-XM-7Mm" secondAttribute="centerY" id="9XZ-8H-M5S"/>
+                                    <constraint firstAttribute="centerY" secondItem="Cc2-BW-dwD" secondAttribute="centerY" constant="-1" id="NYx-09-0uS"/>
+                                    <constraint firstItem="Cc2-BW-dwD" firstAttribute="leading" secondItem="P05-2e-gwb" secondAttribute="leading" constant="8" id="YB5-Gj-7OW"/>
+                                    <constraint firstAttribute="centerY" secondItem="Fve-dk-QVJ" secondAttribute="centerY" constant="-0.5" id="dRj-P9-9uf"/>
+                                    <constraint firstAttribute="trailing" secondItem="CAQ-XM-7Mm" secondAttribute="trailing" constant="22" id="uo4-c0-Lkx"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSM-rE-xlz">
+                                <rect key="frame" x="16" y="110" width="568" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album and artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gS5-ZC-eEC">
+                                <rect key="frame" x="16" y="140" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gSM-rE-xlz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="1r7-py-4KI"/>
+                            <constraint firstAttribute="centerX" secondItem="0Or-Fz-fZU" secondAttribute="centerX" id="2XV-ui-UvH"/>
+                            <constraint firstAttribute="centerX" secondItem="gSM-rE-xlz" secondAttribute="centerX" id="6eE-Ew-iq9"/>
+                            <constraint firstItem="0Or-Fz-fZU" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="MFx-jo-fZi"/>
+                            <constraint firstAttribute="centerX" secondItem="P05-2e-gwb" secondAttribute="centerX" id="YDa-9R-lbW"/>
+                            <constraint firstItem="gSM-rE-xlz" firstAttribute="top" secondItem="0Or-Fz-fZU" secondAttribute="bottom" constant="8" id="ZLC-di-Ch1"/>
+                            <constraint firstItem="gSM-rE-xlz" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="iYa-EC-FsX"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="P05-2e-gwb" secondAttribute="bottom" constant="20" id="ngP-9h-yNC"/>
+                            <constraint firstItem="0Or-Fz-fZU" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="p4D-1a-WJn"/>
+                            <constraint firstItem="0Or-Fz-fZU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="uf3-i8-Rfr"/>
+                            <constraint firstItem="P05-2e-gwb" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="xky-8y-sTH"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="NOISE.SUPPLY" id="b4n-k2-gPf"/>
+                    <connections>
+                        <outlet property="playButton" destination="Fve-dk-QVJ" id="cio-Nd-7bb"/>
+                        <outlet property="songDeetsLabel" destination="gS5-ZC-eEC" id="GnR-W4-kCd"/>
+                        <outlet property="songNameLabel" destination="gSM-rE-xlz" id="CXR-og-e1g"/>
+                        <outlet property="urlField" destination="0Or-Fz-fZU" id="yOG-XU-hT8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="257" y="-366"/>
         </scene>
     </scenes>
 </document>

@@ -13,6 +13,7 @@
 		E7D9C7101B1C3F39002B2DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D9C70F1B1C3F39002B2DEB /* Images.xcassets */; };
 		E7D9C7131B1C3F39002B2DEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D9C7111B1C3F39002B2DEB /* LaunchScreen.xib */; };
 		E7D9C71F1B1C3F39002B2DEB /* Noise_SupplyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D9C71E1B1C3F39002B2DEB /* Noise_SupplyTests.swift */; };
+		E7D9C72E1B1D0788002B2DEB /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = E7D9C72D1B1D0788002B2DEB /* AudioStreamer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,9 @@
 		E7D9C7181B1C3F39002B2DEB /* Noise.SupplyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Noise.SupplyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D9C71D1B1C3F39002B2DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7D9C71E1B1C3F39002B2DEB /* Noise_SupplyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Noise_SupplyTests.swift; sourceTree = "<group>"; };
+		E7D9C72B1B1D0451002B2DEB /* Noise.Supply-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Noise.Supply-Bridging-Header.h"; sourceTree = "<group>"; };
+		E7D9C72C1B1D0788002B2DEB /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
+		E7D9C72D1B1D0788002B2DEB /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 		E7D9C7051B1C3F39002B2DEB /* Noise.Supply */ = {
 			isa = PBXGroup;
 			children = (
+				E7D9C72C1B1D0788002B2DEB /* AudioStreamer.h */,
+				E7D9C72D1B1D0788002B2DEB /* AudioStreamer.m */,
 				E7D9C7081B1C3F39002B2DEB /* AppDelegate.swift */,
 				E7D9C70A1B1C3F39002B2DEB /* ViewController.swift */,
 				E7D9C70C1B1C3F39002B2DEB /* Main.storyboard */,
@@ -90,6 +96,7 @@
 		E7D9C7061B1C3F39002B2DEB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E7D9C72B1B1D0451002B2DEB /* Noise.Supply-Bridging-Header.h */,
 				E7D9C7071B1C3F39002B2DEB /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -214,6 +221,7 @@
 			files = (
 				E7D9C70B1B1C3F39002B2DEB /* ViewController.swift in Sources */,
 				E7D9C7091B1C3F39002B2DEB /* AppDelegate.swift in Sources */,
+				E7D9C72E1B1D0788002B2DEB /* AudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +351,7 @@
 				INFOPLIST_FILE = Noise.Supply/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Noise.Supply/Noise.Supply-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -353,6 +362,7 @@
 				INFOPLIST_FILE = Noise.Supply/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Noise.Supply/Noise.Supply-Bridging-Header.h";
 			};
 			name = Release;
 		};
