@@ -13,6 +13,9 @@ class SongViewController: UIViewController {
     @IBOutlet var playButton:UIButton!
     @IBOutlet var songNameLabel:UILabel!
     @IBOutlet var songDeetsLabel:UILabel!
+    @IBOutlet var backgroundImage:UIImageView!
+    @IBOutlet var mainImage:UIImageView!
+    @IBOutlet var vfxView:UIVisualEffectView!
 
     var supply:SoundCloudSupply? {
         didSet {
@@ -42,5 +45,22 @@ class SongViewController: UIViewController {
         playButton.setTitle(supply.playing ? "Pause" : "Play", forState: .Normal)
         songNameLabel.text = supply.songName
         songDeetsLabel.text = supply.userName
+        
+        if let imageActual = supply.image {
+            
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.backgroundImage.image = imageActual
+
+                if imageActual.size.width < self.backgroundImage.image?.size.width {
+                    self.mainImage.alpha = 1
+                    self.vfxView.alpha = 1
+                    self.mainImage.image = imageActual
+                }
+                else {
+                    self.mainImage.alpha = 0
+                    self.vfxView.alpha = 0
+                }
+            })
+        }
     }
 }

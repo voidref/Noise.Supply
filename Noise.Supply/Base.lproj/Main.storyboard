@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E26a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UXH-Ms-RaJ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -75,8 +76,8 @@
                             <constraint firstItem="0Or-Fz-fZU" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="22" id="uf3-i8-Rfr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="NOISE.SUPPLY" id="b4n-k2-gPf">
-                        <barButtonItem key="backBarButtonItem" title="Reseed" id="Vsb-pL-zv9"/>
+                    <navigationItem key="navigationItem" title="NOISESUPPLY" id="b4n-k2-gPf">
+                        <barButtonItem key="backBarButtonItem" title=" " id="kLR-NZ-g4U"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
@@ -91,7 +92,7 @@
         <!--SongView-->
         <scene sceneID="cTb-4Y-U84">
             <objects>
-                <viewController id="vdA-1C-KBU" userLabel="SongView" customClass="SongViewController" customModule="Noise_Supply" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="NOISESUPPLY" id="vdA-1C-KBU" userLabel="SongView" customClass="SongViewController" customModule="Noise_Supply" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6cR-Pr-oMA"/>
                         <viewControllerLayoutGuide type="bottom" id="m4L-sz-07K"/>
@@ -101,13 +102,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Song Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="od4-ad-XpG">
-                                <rect key="frame" x="16" y="118.5" width="343" height="26.5"/>
+                                <rect key="frame" x="16" y="447" width="343" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Album and artist" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGO-6U-fgg">
-                                <rect key="frame" x="16" y="149" width="343" height="21"/>
+                                <rect key="frame" x="16" y="477" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -148,20 +149,63 @@
                                     <constraint firstItem="TXH-E1-bSw" firstAttribute="height" secondItem="woP-vO-DiO" secondAttribute="height" id="uTF-EJ-CuK"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Noise.supply" translatesAutoresizingMaskIntoConstraints="NO" id="HLx-A7-0I1" userLabel="Background">
+                                <rect key="frame" x="0.0" y="64" width="375" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HLx-A7-0I1" secondAttribute="height" id="dMf-nH-2xX"/>
+                                </constraints>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aat-ZM-0uE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="375"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tez-B8-Zkw">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DOz-o2-5ly">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="R0t-Q7-Itb">
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                        <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Noise.supply" translatesAutoresizingMaskIntoConstraints="NO" id="sH6-eJ-rVv" userLabel="Foreground">
+                                            <rect key="frame" x="97" y="98" width="180" height="180"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="centerX" secondItem="sH6-eJ-rVv" secondAttribute="centerX" constant="0.5" id="2yX-YX-YJe"/>
+                                        <constraint firstAttribute="centerY" secondItem="sH6-eJ-rVv" secondAttribute="centerY" constant="-0.5" id="wb2-K5-acZ"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="width" secondItem="aat-ZM-0uE" secondAttribute="width" id="0Mb-iB-oOJ"/>
                             <constraint firstItem="woP-vO-DiO" firstAttribute="trailing" secondItem="eIS-dv-zR1" secondAttribute="trailingMargin" id="0mZ-hJ-zO3"/>
                             <constraint firstAttribute="centerX" secondItem="woP-vO-DiO" secondAttribute="centerX" id="2uj-1f-STd"/>
                             <constraint firstItem="woP-vO-DiO" firstAttribute="leading" secondItem="eIS-dv-zR1" secondAttribute="leadingMargin" id="53b-i0-S0v"/>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="width" secondItem="eIS-dv-zR1" secondAttribute="width" id="IF0-dA-YEy"/>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="top" secondItem="6cR-Pr-oMA" secondAttribute="bottom" id="OBJ-Vv-nBw"/>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="height" secondItem="aat-ZM-0uE" secondAttribute="height" id="UmI-Dq-iSa"/>
                             <constraint firstItem="m4L-sz-07K" firstAttribute="top" secondItem="woP-vO-DiO" secondAttribute="bottom" constant="49" id="YnQ-bi-LM5"/>
+                            <constraint firstAttribute="centerX" secondItem="HLx-A7-0I1" secondAttribute="centerX" id="jl3-zU-5x3"/>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="centerX" secondItem="aat-ZM-0uE" secondAttribute="centerX" id="qfC-gU-xnT"/>
+                            <constraint firstItem="HLx-A7-0I1" firstAttribute="centerY" secondItem="aat-ZM-0uE" secondAttribute="centerY" id="rYG-Td-wGj"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="backgroundImage" destination="HLx-A7-0I1" id="Yr6-b3-Ulc"/>
+                        <outlet property="mainImage" destination="sH6-eJ-rVv" id="L7d-38-8U7"/>
                         <outlet property="playButton" destination="TXH-E1-bSw" id="Ju1-h0-bYY"/>
                         <outlet property="songDeetsLabel" destination="aGO-6U-fgg" id="TDS-AD-uMW"/>
                         <outlet property="songNameLabel" destination="od4-ad-XpG" id="nje-sY-fiS"/>
+                        <outlet property="vfxView" destination="aat-ZM-0uE" id="gPJ-Jw-b0u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaB-n2-ON9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -169,4 +213,7 @@
             <point key="canvasLocation" x="733.5" y="-366.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Noise.supply" width="180" height="180"/>
+    </resources>
 </document>
