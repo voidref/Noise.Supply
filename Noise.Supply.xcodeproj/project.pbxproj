@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7819F151B201A00008D8A60 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7819F141B201A00008D8A60 /* SongViewController.swift */; };
+		E7819F171B201B09008D8A60 /* SoundCloudSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7819F161B201B09008D8A60 /* SoundCloudSupply.swift */; };
 		E7D9C7091B1C3F39002B2DEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D9C7081B1C3F39002B2DEB /* AppDelegate.swift */; };
-		E7D9C70B1B1C3F39002B2DEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D9C70A1B1C3F39002B2DEB /* ViewController.swift */; };
+		E7D9C70B1B1C3F39002B2DEB /* SeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D9C70A1B1C3F39002B2DEB /* SeedViewController.swift */; };
 		E7D9C70E1B1C3F39002B2DEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D9C70C1B1C3F39002B2DEB /* Main.storyboard */; };
 		E7D9C7101B1C3F39002B2DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D9C70F1B1C3F39002B2DEB /* Images.xcassets */; };
 		E7D9C7131B1C3F39002B2DEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7D9C7111B1C3F39002B2DEB /* LaunchScreen.xib */; };
@@ -26,10 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E7819F141B201A00008D8A60 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
+		E7819F161B201B09008D8A60 /* SoundCloudSupply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudSupply.swift; sourceTree = "<group>"; };
 		E7D9C7031B1C3F39002B2DEB /* Noise.Supply.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Noise.Supply.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D9C7071B1C3F39002B2DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7D9C7081B1C3F39002B2DEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E7D9C70A1B1C3F39002B2DEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E7D9C70A1B1C3F39002B2DEB /* SeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedViewController.swift; sourceTree = "<group>"; };
 		E7D9C70D1B1C3F39002B2DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7D9C70F1B1C3F39002B2DEB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E7D9C7121B1C3F39002B2DEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 		E7D9C6FA1B1C3F39002B2DEB = {
 			isa = PBXGroup;
 			children = (
+				E7819F161B201B09008D8A60 /* SoundCloudSupply.swift */,
 				E7D9C7051B1C3F39002B2DEB /* Noise.Supply */,
 				E7D9C71B1B1C3F39002B2DEB /* Noise.SupplyTests */,
 				E7D9C7041B1C3F39002B2DEB /* Products */,
@@ -79,7 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				E7D9C7081B1C3F39002B2DEB /* AppDelegate.swift */,
-				E7D9C70A1B1C3F39002B2DEB /* ViewController.swift */,
+				E7D9C70A1B1C3F39002B2DEB /* SeedViewController.swift */,
+				E7819F141B201A00008D8A60 /* SongViewController.swift */,
 				E7D9C70C1B1C3F39002B2DEB /* Main.storyboard */,
 				E7D9C70F1B1C3F39002B2DEB /* Images.xcassets */,
 				E7D9C7111B1C3F39002B2DEB /* LaunchScreen.xib */,
@@ -214,7 +220,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7D9C70B1B1C3F39002B2DEB /* ViewController.swift in Sources */,
+				E7819F151B201A00008D8A60 /* SongViewController.swift in Sources */,
+				E7D9C70B1B1C3F39002B2DEB /* SeedViewController.swift in Sources */,
+				E7819F171B201B09008D8A60 /* SoundCloudSupply.swift in Sources */,
 				E7D9C7091B1C3F39002B2DEB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

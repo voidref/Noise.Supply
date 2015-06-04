@@ -1,65 +1,76 @@
 //
-//  ViewController.swift
+//  SoundCloudSupply.swift
 //  Noise.Supply
 //
-//  Created by Alan Westbrook on 6/1/15.
+//  Created by Alan Westbrook on 6/3/15.
 //  Copyright (c) 2015 rockwood. All rights reserved.
 //
 
-import UIKit
-import AVKit
+import Foundation
 import AVFoundation
 
 let kClientId = "b386da1a67a067584cac1747c49ef3d7"
 
-class ViewController: UIViewController {
-
-    @IBOutlet var urlField:UITextField!
-    @IBOutlet var playButton:UIButton!
-    @IBOutlet var songNameLabel:UILabel!
-    @IBOutlet var songDeetsLabel:UILabel!
+class SoundCloudSupply {
     
-//    private var streamer:AudioStreamer?
-    private var player:AVPlayer?
-    private var playing:Bool = false {
+    var seedText:String = "" {
         didSet {
-            playButton.setTitle(playing ? "Pause" : "Play", forState: .Normal)
+            beginStream()
         }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        urlField.text = "https://soundcloud.com/yearsinemptiness/lost-astronaut"
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    var songName:String?
+    var userName:String?
+    var playing:Bool = false {
+        didSet {
+            notifyHandler()
+        }
     }
     
-    @IBAction func supplyNoiseClicked(sender: UIButton) {
+    var updateHandler:((supply:SoundCloudSupply) -> Void)?
+    
+    private var player:AVPlayer?
+    private var observer:PlayerStreamObserver?
+
+    func togglePlay() {
         if playing {
-            self.player?.pause()
-            playing = false
+            pause()
         }
-        else if self.player != nil {
-            self.player?.play()
+        else {
+            play()
+        }
+    }
+    
+    func play() {
+        if let playerActual = player {
+            playerActual.play()
             playing = true
         }
-        else if let url = NSURL(string: urlField.text) {
-            beginTrackStream(url)
+    }
+    
+    func pause() {
+        if let playerActual = player {
+            playerActual.pause()
+            playing = false
         }
     }
     
-    func beginTrackStream(url:NSURL) {
-        resolveURL(url, completion: { (data) -> Void in
+    func next() {
+        
+    }
+    
+    func previous() {
+        
+    }
+    
+    private func notifyHandler() {
+        if let handlerActual = updateHandler {
+            handlerActual(supply:self)
+        }
+    }
+    
+    private func beginStream() {
+        resolveSeed() { (data) -> Void in
             
             if let jsonData = data {
                 if let dict = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(), error: nil) as? NSDictionary {
@@ -73,65 +84,94 @@ class ViewController: UIViewController {
                     
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         if let title = dict["title"] as? String {
-                            self.songNameLabel.text = title
+                            self.songName = title
                         }
                         
                         if let user = dict["user"] as? NSDictionary {
                             if let username = user["username"] as? String {
                                 // Sometimes this is actually the album =/
-                                self.songDeetsLabel.text = username
+                                self.userName = username
                             }
                         }
+                        
+                        self.notifyHandler()
                     })
                 }
             }
-        })
+        }
     }
     
-    func resolveURL(url:NSURL, completion:(data:NSData?) -> Void) {
+    private func resolveSeed(completion:(data:NSData?) -> Void) {
+        resolve(self.seedText, completion: completion)
+    }
+    
+    private func resolve(track:String, completion:(data:NSData?) -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            let trackURL = NSURL(string: "https://api.soundcloud.com/resolve.json?url=\(url)&client_id=\(kClientId)")!
+            let trackURL = NSURL(string: "https://api.soundcloud.com/resolve.json?url=\(track)&client_id=\(kClientId)")!
             if let resolvedData = NSData(contentsOfURL: trackURL) {
                 // track
                 completion(data: resolvedData)
             } 
             else {
                 // User
-                let userURL = NSURL(string: "https://api.soundcloud.com/users/\(url)/favorites?client_id=\(kClientId)")!
+                let userURL = NSURL(string: "https://api.soundcloud.com/users/\(track)/favorites?client_id=\(kClientId)")!
                 if let trackData = NSData(contentsOfURL: userURL) {
                     if let trackArray = NSJSONSerialization.JSONObjectWithData(trackData, options: NSJSONReadingOptions(), error: nil) as? NSArray {
                         let randomIndex = Int(arc4random()) % trackArray.count
-                        let randTrack = trackArray[randomIndex] as! String
-                        if let url = NSURL(string: randTrack) {
-                            self.resolveURL(url, completion: completion)
+                        let randTrack = trackArray[randomIndex] as! NSDictionary
+                        if let track = randTrack["permalink_url"] as? String {
+                            self.resolve(track, completion: completion)
                         }
                     }
                 }
             }
         })
     }
-    
+
     func playStreamWithURL(url:NSURL) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.player = AVPlayer(URL: url)
             
-            self.player?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
-            self.player?.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.New, context: nil)
+            if self.observer != nil {
+                self.observer = nil
+            }
+            
+            self.player?.pause()
+            
+            self.player = AVPlayer(URL: url)            
+            self.observer = PlayerStreamObserver(supply: self)
             self.player?.play()
-//            self.streamer = AudioStreamer(URL: url)
-//            self.streamer?.start()
+            //            self.streamer = AudioStreamer(URL: url)
+            //            self.streamer?.start()
         })
     }
     
+
+}
+
+private class PlayerStreamObserver : NSObject {
+    weak var supplier:SoundCloudSupply?
+    
+    required init(supply:SoundCloudSupply) {
+        supplier = supply
+        super.init()
+        supply.player?.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
+        supply.player?.addObserver(self, forKeyPath: "rate", options: NSKeyValueObservingOptions.New, context: nil)
+    }
+    
+    deinit {
+        supplier?.player?.removeObserver(self, forKeyPath: "status")
+        supplier?.player?.removeObserver(self, forKeyPath: "rate")
+    }
+
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object === player {
+        if object === supplier?.player {
             if keyPath == "status" {
-                if player?.status == .ReadyToPlay {
+                if supplier?.player?.status == .ReadyToPlay {
                     
                 }   
             }
             else if keyPath == "rate" {
-                playing = player?.rate > 0
+                supplier?.playing = supplier?.player?.rate > 0
             }
         }
         else {
@@ -186,14 +226,14 @@ title = "Lost Astronaut";
 "track_type" = "<null>";
 uri = "https://api.soundcloud.com/tracks/200508770";
 user =     {
-"avatar_url" = "https://i1.sndcdn.com/avatars-000142821720-yfe9jp-large.jpg";
-id = 22777359;
-kind = user;
-"last_modified" = "2015/04/26 08:10:07 +0000";
-permalink = yearsinemptiness;
-"permalink_url" = "http://soundcloud.com/yearsinemptiness";
-uri = "https://api.soundcloud.com/users/22777359";
-username = "YEARS IN EMPTINESS";
+    "avatar_url" = "https://i1.sndcdn.com/avatars-000142821720-yfe9jp-large.jpg";
+    id = 22777359;
+    kind = user;
+    "last_modified" = "2015/04/26 08:10:07 +0000";
+    permalink = yearsinemptiness;
+    "permalink_url" = "http://soundcloud.com/yearsinemptiness";
+    uri = "https://api.soundcloud.com/users/22777359";
+    username = "YEARS IN EMPTINESS";
 };
 "user_id" = 22777359;
 "video_url" = "<null>";
@@ -201,4 +241,5 @@ username = "YEARS IN EMPTINESS";
 }
 
 */
+
 
