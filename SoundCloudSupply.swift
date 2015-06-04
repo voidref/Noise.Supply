@@ -107,23 +107,31 @@ class SoundCloudSupply {
     
     private func resolve(track:String, completion:(data:NSData?) -> Void) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            let trackURL = NSURL(string: "https://api.soundcloud.com/resolve.json?url=\(track)&client_id=\(kClientId)")!
-            if let resolvedData = NSData(contentsOfURL: trackURL) {
-                // track
-                completion(data: resolvedData)
-            } 
-            else {
-                // User
-                let userURL = NSURL(string: "https://api.soundcloud.com/users/\(track)/favorites?client_id=\(kClientId)")!
-                if let trackData = NSData(contentsOfURL: userURL) {
-                    if let trackArray = NSJSONSerialization.JSONObjectWithData(trackData, options: NSJSONReadingOptions(), error: nil) as? NSArray {
-                        let randomIndex = Int(arc4random()) % trackArray.count
-                        let randTrack = trackArray[randomIndex] as! NSDictionary
-                        if let track = randTrack["permalink_url"] as? String {
-                            self.resolve(track, completion: completion)
+            if let trackURL = NSURL(string: "https://api.soundcloud.com/resolve.json?url=\(track)&client_id=\(kClientId)") {
+                if let resolvedData = NSData(contentsOfURL: trackURL) {
+                    // track
+                    completion(data: resolvedData)
+                } 
+                else {
+                    // User
+                    if let userURL = NSURL(string: "https://api.soundcloud.com/users/\(track)/favorites?client_id=\(kClientId)") {
+                        if let trackData = NSData(contentsOfURL: userURL) {
+                            if let trackArray = NSJSONSerialization.JSONObjectWithData(trackData, options: NSJSONReadingOptions(), error: nil) as? NSArray {
+                                let randomIndex = Int(arc4random()) % trackArray.count
+                                let randTrack = trackArray[randomIndex] as! NSDictionary
+                                if let track = randTrack["permalink_url"] as? String {
+                                    self.resolve(track, completion: completion)
+                                }
+                            }
                         }
                     }
+                    else {
+                        // malformed input
+                    }
                 }
+            }
+            else {
+                // malformed input - Inform UI?
             }
         })
     }
