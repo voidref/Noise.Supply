@@ -121,6 +121,9 @@
                                         <state key="normal" title="Next">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="nextClicked:" destination="vdA-1C-KBU" eventType="touchUpInside" id="5Cd-0s-qzA"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXH-E1-bSw">
                                         <rect key="frame" x="156" y="0.0" width="30" height="30"/>

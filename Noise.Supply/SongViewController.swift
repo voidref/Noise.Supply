@@ -36,11 +36,13 @@ class SongViewController: UIViewController {
     }
     
     @IBAction func playClicked(sender: UIButton) {
-        if let supplyActual = supply {
-            supplyActual.togglePlay()
-        }
+        supply?.togglePlay()
     }
 
+    @IBAction func nextClicked(sender: UIButton) {
+        supply?.next()
+    }
+    
     func handleSupplyUpdate(supply:SoundCloudSupply) {
         playButton.setTitle(supply.playing ? "Pause" : "Play", forState: .Normal)
         songNameLabel.text = supply.songName

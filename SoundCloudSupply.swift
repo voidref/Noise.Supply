@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 
 let kClientId = "b386da1a67a067584cac1747c49ef3d7"
+let kRelatedLimit = 10
 
 class SoundCloudSupply {
     
@@ -32,6 +33,11 @@ class SoundCloudSupply {
     
     private var player:AVPlayer?
     private var observer:PlayerStreamObserver?
+    private var trackInfo:NSDictionary? {
+        didSet {
+            handleTrackInfoUpdated()
+        }
+    }
 
     func togglePlay() {
         if playing {
@@ -45,23 +51,17 @@ class SoundCloudSupply {
     func play() {
         if let playerActual = player {
             playerActual.play()
-            playing = true
         }
     }
     
     func pause() {
         if let playerActual = player {
             playerActual.pause()
-            playing = false
         }
     }
     
     func next() {
-        
-    }
-    
-    func previous() {
-        
+        getNextRelatedTrack()
     }
     
     private func notifyHandler() {
@@ -75,41 +75,46 @@ class SoundCloudSupply {
             
             if let jsonData = data {
                 if let dict = NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(), error: nil) as? NSDictionary {
-                    println("\(dict)")
-                    if let streamValue = dict["stream_url"] as? String {
-                        let credentialValue = "\(streamValue)?client_id=\(kClientId)"
-                        if let streamURL = NSURL(string: credentialValue) {
-                            self.playStreamWithURL(streamURL)
-                        }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        if let title = dict["title"] as? String {
-                            self.songName = title
-                        }
-                        
-                        self.image = nil
-                        if let imageURL = dict["artwork_url"] as? String {
-                            self.setImageFromBase(imageURL)
-                        }
-                        
-                        if let user = dict["user"] as? NSDictionary {
-                            if let username = user["username"] as? String {
-                                // Sometimes this is actually the album =/
-                                self.userName = username
-                            }
-                            
-                            if self.image == nil {
-                                if let userAvatarURL = user["avatar_url"] as? String {
-                                    self.setImageFromBase(userAvatarURL)
-                                }
-                            }
-                        }
-                        
-                        self.notifyHandler()
-                    })
+                    self.trackInfo = dict
                 }
             }
+        }
+    }
+    
+    private func handleTrackInfoUpdated() {
+        if let dict = trackInfo {
+            if let streamValue = dict["stream_url"] as? String {
+                let credentialValue = "\(streamValue)?client_id=\(kClientId)"
+                if let streamURL = NSURL(string: credentialValue) {
+                    self.playStreamWithURL(streamURL)
+                }
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if let title = dict["title"] as? String {
+                    self.songName = title
+                }
+                
+                self.image = nil
+                if let imageURL = dict["artwork_url"] as? String {
+                    self.setImageFromBase(imageURL)
+                }
+                
+                if let user = dict["user"] as? NSDictionary {
+                    if let username = user["username"] as? String {
+                        // Sometimes this is actually the album =/
+                        self.userName = username
+                    }
+                    
+                    if self.image == nil {
+                        if let userAvatarURL = user["avatar_url"] as? String {
+                            self.setImageFromBase(userAvatarURL)
+                        }
+                    }
+                }
+                
+                self.notifyHandler()
+            })
         }
     }
     
@@ -212,6 +217,21 @@ class SoundCloudSupply {
         return nil
     }
     
+    private func getNextRelatedTrack() {
+        if let info = trackInfo {
+            if let id = info["id"] as? Int {
+                if let relatedQueryURL = NSURL(string: "https://api.soundcloud.com/tracks/\(id)/related?limit=\(kRelatedLimit)") {
+                    if let relatedData = NSData(contentsOfURL: relatedQueryURL) {
+                        if let trackArray = NSJSONSerialization.JSONObjectWithData(relatedData, options: NSJSONReadingOptions(), error: nil) as? [NSDictionary] {
+                            let randomIndex = Int(arc4random()) % trackArray.count
+                            trackInfo = trackArray[randomIndex]
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private func playStreamWithURL(url:NSURL) {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
@@ -226,8 +246,6 @@ class SoundCloudSupply {
             self.player?.play()
         })
     }
-    
-
 }
 
 private class PlayerStreamObserver : NSObject {
@@ -244,9 +262,15 @@ private class PlayerStreamObserver : NSObject {
     }
 
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object === supplier?.player {
-            if keyPath == "rate" {
-                supplier?.playing = supplier?.player?.rate > 0
+        if let supply = supplier {
+            if object === supply.player {
+                if keyPath == "rate" {
+                    if supply.playing && supply.player?.rate < 1 {
+                        supply.next()
+                    }
+                    
+                    supply.playing = supply.player?.rate > 0
+                }
             }
         }
         else {
