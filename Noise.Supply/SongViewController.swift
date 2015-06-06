@@ -8,6 +8,7 @@
 
 import UIKit
 
+let kPlaceholderImageName = "Noise.supply"
 class SongViewController: UIViewController {
 
     @IBOutlet var playButton:UIButton!
@@ -63,6 +64,14 @@ class SongViewController: UIViewController {
                     self.vfxView.alpha = 0
                 }
             })
+        }
+        else {
+//            UIView.animateWithDuration(0.3, animations: { () -> Void in
+//                self.mainImage.alpha = 1
+//                self.vfxView.alpha = 1
+//                self.mainImage.image = UIImage(named: kPlaceholderImageName)
+//                self.backgroundImage.image = self.mainImage.image
+//            })
         }
     }
 }
